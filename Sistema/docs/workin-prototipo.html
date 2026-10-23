@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WorkIn · Prototipo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f9fafb;--card:#fff;--ink:#111827;--mut:#4b5563;--line:#e5e7eb;--ind:#4f46e5;--indl:#eef2ff;--indt:#3730a3;--g:#d1fae5;--gt:#065f46;--a:#fef3c7;--at:#92400e;--r:#fee2e2;--rt:#991b1b;--nav:#0f172a;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1020;--card:#151b2e;--ink:#f3f4f6;--mut:#a3aec2;--line:#27304a;--ind:#818cf8;--indl:#1e2247;--indt:#c7d2fe;--g:#064e3b;--gt:#a7f3d0;--a:#451a03;--at:#fde68a;--r:#450a0a;--rt:#fecaca;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0b1020;--card:#151b2e;--ink:#f3f4f6;--mut:#a3aec2;--line:#27304a;--ind:#818cf8;--indl:#1e2247;--indt:#c7d2fe;--g:#064e3b;--gt:#a7f3d0;--a:#451a03;--at:#fde68a;--r:#450a0a;--rt:#fecaca;color-scheme:dark}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 Geist,system-ui,-apple-system,"Segoe UI",sans-serif}
+button,input,select{font:inherit;color:inherit}
+header{background:var(--nav);color:#fff;padding:12px 20px;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center}
+.brand{display:flex;gap:10px;align-items:center;font-weight:800;font-size:18px}
+.brand i{width:32px;height:32px;border-radius:9px;background:#4f46e5;display:grid;place-items:center;font-style:normal}
+.who{color:#94a3b8;font-size:12px;margin-left:auto}
+.seg{background:none;border:0;color:#94a3b8;padding:8px 14px;border-radius:8px;cursor:pointer;font-weight:500}
+.seg.on{background:#1e293b;color:#fff}
+#roles{display:flex;gap:4px}
+nav{display:flex;gap:4px;padding:10px 20px 0;border-bottom:1px solid var(--line);overflow-x:auto}
+nav button{background:none;border:0;border-bottom:2px solid transparent;padding:10px 12px;cursor:pointer;color:var(--mut);font-weight:500;white-space:nowrap}
+nav button.on{color:var(--ind);border-color:var(--ind)}
+main{padding:24px 20px;max-width:1040px;margin:0 auto}
+main.wk{max-width:440px}
+h1{font-size:22px;margin:0 0 4px}.sub{color:var(--mut);margin:0 0 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.note{background:var(--indl);color:var(--indt);border-radius:10px;padding:10px 14px;margin:12px 0;font-size:13px}
+.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.sp{flex:1}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:12px 0}
+.stats b{display:block;font-size:26px;font-weight:700}
+.btn{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:9px 14px;cursor:pointer;font-weight:500}
+.btn.p{background:#4f46e5;border-color:#4f46e5;color:#fff}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.btn:focus-visible,input:focus-visible,select:focus-visible,nav button:focus-visible,.seg:focus-visible{outline:2px solid var(--ind);outline-offset:2px}
+.tw{overflow-x:auto}table{width:100%;border-collapse:collapse}
+th{font-size:12px;color:var(--mut);text-align:left;padding:10px 12px;background:var(--bg)}
+td{padding:12px;border-top:1px solid var(--line);white-space:nowrap}
+td small{display:block;color:var(--mut)}
+.bd{display:inline-block;padding:2px 9px;border-radius:99px;font-size:11px;font-weight:600}
+.bd.g{background:var(--g);color:var(--gt)}.bd.a{background:var(--a);color:var(--at)}.bd.i{background:var(--indl);color:var(--indt)}.bd.x{background:var(--bg);color:var(--mut);border:1px solid var(--line)}.bd.r{background:var(--r);color:var(--rt)}
+.mod{position:fixed;inset:0;background:rgba(15,23,42,.55);display:grid;place-items:center;padding:16px;z-index:5}
+.mod .card{width:100%;max-width:480px;max-height:100%;overflow:auto}
+label{display:block;font-weight:500;font-size:13px;margin:12px 0 4px}
+input,select{width:100%;padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--card)}
+.hint{font-size:12px;margin-top:4px;color:var(--mut)}.hint.ok{color:#059669}.hint.er{color:#dc2626}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.list{display:grid;gap:12px;margin-top:12px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:99px;padding:5px 12px;cursor:pointer}
+.chip.on{background:var(--ind);border-color:var(--ind);color:#fff}
+.pay{font-weight:700}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--nav);color:#fff;padding:10px 16px;border-radius:10px;z-index:9;max-width:90%}
+.qr{aspect-ratio:1;border:2px dashed var(--ind);border-radius:12px;display:grid;place-items:center;color:var(--mut);margin:12px 0}
+.warn{color:var(--rt);background:var(--r);border-radius:8px;padding:6px 10px;font-size:12px;margin-top:8px}
+@media(max-width:560px){.two,.stats{grid-template-columns:1fr}.who{margin-left:0}}
+</style></head><body>
+<header><div class="brand"><i>W</i>WorkIn</div><div id="roles" role="tablist"></div><div class="who" id="who"></div></header>
+<nav id="tabs"></nav><main id="app"></main><div id="ov"></div><div id="toast"></div>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const dv=n=>{let s=0,m=2;for(const d of String(n).split('').reverse()){s+=+d*m;m=m===7?2:m+1}const r=11-s%11;return r===11?'0':r===10?'K':''+r};
+const fmt=n=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g,'.')+'-'+dv(n);
+const parseRut=v=>{const c=v.replace(/[^0-9kK]/g,'').toUpperCase();if(c.length<8)return null;const b=c.slice(0,-1);return{n:+b,ok:/^\d+$/.test(b)&&dv(b)===c.slice(-1)}};
+const money=n=>'$'+n.toLocaleString('es-CL');
+const mm=t=>{const[h,m]=t.split(':');return h*60+ +m};
+const dl=d=>new Date(d+'T00:00').toLocaleDateString('es-CL',{weekday:'short',day:'numeric',month:'short'});
+const now=()=>new Date().toTimeString().slice(0,5);
+const ME=18452367;
+const S={role:'admin',tab:{admin:'bolsa',enc:'turnos',wk:'ofertas'},ov:null,f:'Todas',
+pool:[{n:ME,name:'Camila Rojas',mail:'camila.rojas@correo.cl',tel:'+56 9 8123 4567',st:'Activo',pri:'Alta'},{n:17894521,name:'Matías Soto',mail:'matias.soto@correo.cl',tel:'+56 9 7345 1209',st:'Activo',pri:'Alta'},{n:19223458,name:'Javiera Muñoz',mail:'javi.munoz@correo.cl',tel:'+56 9 6612 8834',st:'Invitado',pri:'Media'},{n:16781234,name:'Diego Fuentes',mail:'diego.fuentes@correo.cl',tel:'+56 9 9054 3321',st:'Pendiente de registro',pri:'Media'}],
+shifts:[{id:1,co:'Bodega Central',d:'2026-10-19',s:'13:30',e:'17:30',pl:'Bodega Quilicura',cup:6,conf:3,pay:15000},{id:2,co:'Eventos Andes',d:'2026-10-19',s:'15:00',e:'19:00',pl:'Centro de eventos Las Condes',cup:10,conf:7,pay:18000},{id:3,co:'Logística Sur',d:'2026-10-20',s:'08:00',e:'12:00',pl:'CD San Bernardo',cup:8,conf:2,pay:14000},{id:4,co:'Bodega Central',d:'2026-10-20',s:'09:00',e:'13:00',pl:'Bodega Quilicura',cup:6,conf:1,pay:15000},{id:5,co:'Eventos Andes',d:'2026-10-21',s:'18:00',e:'23:00',pl:'Hotel Costanera',cup:12,conf:9,pay:22000}],
+mine:[],pools:{'Bodega Central':1,'Eventos Andes':1,'Logística Sur':1},nid:6,
+audit:[{t:'Ayer 18:02',who:'Marcela Díaz',act:'Agregó a la bolsa',det:'Matías Soto'},{t:'Ayer 18:04',who:'Marcela Díaz',act:'Cambió prioridad',det:'Matías Soto: Media → Alta'}],
+pagos:{'Bodega Central':[8,120000,0],'Eventos Andes':[3,54000,0],'Logística Sur':[2,28000,0]}};
+const log=(who,act,det)=>S.audit.unshift({t:'Hoy '+now(),who,act,det});
+const toast=m=>{$('#toast').innerHTML='<div class="toast" role="status">'+esc(m)+'</div>';setTimeout(()=>$('#toast').innerHTML='',2600)};
+const clash=sh=>S.mine.some(m=>{const o=S.shifts.find(x=>x.id===m.id);return o&&o.d===sh.d&&mm(o.s)<mm(sh.e)&&mm(sh.s)<mm(o.e)});
+const pb=st=>'<span class="bd '+({Activo:'g',Invitado:'a','Pendiente de registro':'i'}[st]||'x')+'">'+st+'</span>';
+const V={
+bolsa(){const c=k=>S.pool.filter(p=>p.st===k).length;
+return `<div class="row"><div class="sp"><h1>Bolsa de trabajadores</h1><p class="sub">Personas que pueden recibir las convocatorias de tu empresa</p></div><button class="btn p" data-a="add">+ Agregar por RUT</button></div>
+<div class="note">Un trabajador puede estar en la bolsa de otras empresas. Tú solo ves su actividad en tus propios turnos.</div>
+<div class="stats"><div class="card">Activos<b>${c('Activo')}</b></div><div class="card">Invitados<b>${c('Invitado')}</b></div><div class="card">Pendientes de registro<b>${c('Pendiente de registro')}</b></div></div>
+<div class="card tw" style="padding:0"><table><tr><th>Trabajador</th><th>RUT</th><th>Contacto</th><th>Estado</th><th>Prioridad</th></tr>${S.pool.map(p=>`<tr><td><b>${esc(p.name)}</b></td><td>${fmt(p.n)}</td><td>${esc(p.mail)}<small>${esc(p.tel)}</small></td><td>${pb(p.st)}</td><td>${p.pri}</td></tr>`).join('')}</table></div>`},
+auditoria(){return `<h1>Historial de auditoría</h1><p class="sub">Quién cambió qué, y cuándo. Estos registros no se pueden borrar.</p><div class="card tw" style="padding:0"><table><tr><th>Cuándo</th><th>Quién</th><th>Acción</th><th>Detalle</th></tr>${S.audit.map(a=>`<tr><td>${a.t}</td><td>${esc(a.who)}</td><td>${esc(a.act)}</td><td>${esc(a.det)}</td></tr>`).join('')}</table></div>`},
+turnos(){const mine=S.shifts.filter(s=>s.co==='Bodega Central');
+return `<h1>Turnos</h1><p class="sub">Publica un turno y se convoca a tu bolsa</p><div class="card"><div class="two"><div><label for="pd">Fecha</label><input id="pd" type="date" value="2026-10-22"></div><div><label for="pp">Lugar</label><input id="pp" value="Bodega Quilicura"></div></div><div class="two"><div><label for="ps">Entrada</label><input id="ps" type="time" value="13:30"></div><div><label for="pe">Salida</label><input id="pe" type="time" value="17:30"></div></div><div class="two"><div><label for="pc">Cupos</label><input id="pc" type="number" min="1" value="6"></div><div><label for="py">Pago por turno</label><input id="py" type="number" min="0" value="15000"></div></div><div class="hint er" id="pe2"></div><p><button class="btn p" data-a="pub">Publicar turno</button></p></div>
+<div class="list">${mine.map(s=>`<div class="card row"><div class="sp"><b>${dl(s.d)} · ${s.s}–${s.e}</b><br><span class="sub" style="margin:0">${esc(s.pl)}</span></div><span class="bd i">${s.conf+S.mine.filter(m=>m.id===s.id).length}/${s.cup} confirmados</span><b>${money(s.pay)}</b></div>`).join('')}</div>`},
+ofertas(){const cos=Object.keys(S.pools).filter(k=>S.pools[k]);const L=S.shifts.filter(s=>S.pools[s.co]&&!S.mine.some(m=>m.id===s.id)&&(S.f==='Todas'||s.co===S.f));
+return `<h1>Ofertas para ti</h1><p class="sub">De todas las empresas que te tienen en su bolsa</p><div class="chips">${['Todas',...cos].map(c=>`<button class="chip ${S.f===c?'on':''}" data-a="f" data-v="${esc(c)}">${esc(c)}</button>`).join('')}</div><div class="list">${L.map(s=>{const k=clash(s);return `<div class="card"><div class="row"><span class="bd i">${esc(s.co)}</span><span class="sp"></span><span class="pay">${money(s.pay)}</span></div><p style="margin:8px 0 2px"><b>${dl(s.d)} · ${s.s}–${s.e}</b></p><div class="sub" style="margin:0">${esc(s.pl)} · ${s.cup-s.conf} cupos</div>${k?'<div class="warn">Choca con un turno que ya confirmaste.</div>':''}<p style="margin:12px 0 0"><button class="btn p" data-a="take" data-v="${s.id}" ${k?'disabled':''}>Confirmar turno</button></p></div>`}).join('')||'<div class="card sub">No hay ofertas por ahora.</div>'}</div>`},
+mis(){return `<h1>Mis turnos</h1><p class="sub">Marca entrada y salida con el QR del lugar</p><div class="list">${S.mine.map(m=>{const s=S.shifts.find(x=>x.id===m.id);return `<div class="card"><div class="row"><span class="bd i">${esc(s.co)}</span><span class="sp"></span>${m.st===2?'<span class="bd g">Completado</span>':m.st===1?'<span class="bd a">En curso</span>':'<span class="bd x">Confirmado</span>'}</div><p style="margin:8px 0 2px"><b>${dl(s.d)} · ${s.s}–${s.e}</b></p><div class="sub" style="margin:0">${esc(s.pl)}${m.ti?' · Entrada '+m.ti:''}${m.to?' · Salida '+m.to:''}</div><p style="margin:12px 0 0" class="row">${m.st<2?`<button class="btn p" data-a="qr" data-v="${s.id}">${m.st?'Marcar salida':'Marcar entrada'} con QR</button>`:''}${m.st===0?`<button class="btn" data-a="drop" data-v="${s.id}">Cancelar</button>`:''}</p></div>`}).join('')||'<div class="card sub">Aún no confirmas turnos. Revisa las ofertas.</div>'}</div>`},
+empresas(){return `<h1>Mis empresas</h1><p class="sub">Empresas que te tienen en su bolsa. Cada una solo ve tus turnos con ella.</p><div class="list">${Object.keys(S.pools).map(c=>`<div class="card row"><b class="sp">${esc(c)}</b>${S.pools[c]?'<span class="bd g">En su bolsa</span><button class="btn" data-a="leave" data-v="'+esc(c)+'">Salir</button>':'<span class="bd x">Saliste</span>'}</div>`).join('')}</div>`},
+pagos(){const ks=Object.keys(S.pagos).filter(k=>S.pools[k]);const t=ks.reduce((a,k)=>a+S.pagos[k][1],0);
+return `<h1>Pagos del período</h1><p class="sub">1–15 de octubre, agrupado por empresa</p><div class="card row"><span class="sp">Total del período</span><b style="font-size:22px">${money(t)}</b></div><div class="list">${ks.map(k=>{const p=S.pagos[k];return `<div class="card"><div class="row"><b class="sp">${esc(k)}</b>${p[2]?'<span class="bd g">Aceptado</span>':'<span class="bd a">Por revisar</span>'}</div><div class="sub" style="margin:4px 0 0">${p[0]} turnos · ${money(p[1])}</div>${p[2]?'':`<p style="margin:12px 0 0"><button class="btn p" data-a="acc" data-v="${esc(k)}">Aceptar resumen</button></p>`}</div>`}).join('')}</div>`}};
+const T={admin:[['bolsa','Bolsa de trabajadores'],['auditoria','Auditoría']],enc:[['turnos','Turnos']],wk:[['ofertas','Ofertas'],['mis','Mis turnos'],['empresas','Mis empresas'],['pagos','Pagos']]};
+function render(){const r=S.role;
+$('#roles').innerHTML=[['admin','Administrador'],['enc','Encargado'],['wk','Trabajador']].map(([k,l])=>`<button class="seg ${r===k?'on':''}" data-a="role" data-v="${k}">${l}</button>`).join('');
+$('#who').textContent=r==='wk'?'Camila Rojas · '+fmt(ME):'Bodega Central Ltda. · Marcela Díaz';
+$('#tabs').innerHTML=T[r].map(([k,l])=>`<button class="${S.tab[r]===k?'on':''}" data-a="tab" data-v="${k}">${l}</button>`).join('');
+$('#app').className=r==='wk'?'wk':'';$('#app').innerHTML=V[S.tab[r]]();
+const o=S.ov;$('#ov').innerHTML=!o?'':o.t==='add'?`<div class="mod"><div class="card" role="dialog" aria-label="Agregar trabajador"><h1>Agregar trabajador a tu bolsa</h1><p class="sub">Identificamos a la persona por su RUT. Si ya tiene cuenta, la vinculamos a tu empresa.</p><label for="ar">RUT</label><input id="ar" placeholder="12.345.678-5" autocomplete="off"><div class="hint" id="rh">Prueba con ${fmt(17234561)}</div><div class="two"><div><label for="am">Correo</label><input id="am" type="email"></div><div><label for="at">Teléfono</label><input id="at" placeholder="+56 9 1234 5678"></div></div><label for="ap">Prioridad de convocatoria</label><select id="ap"><option>Alta</option><option selected>Media</option><option>Baja</option></select><div class="note">Enviaremos una invitación al correo y teléfono indicados. La persona activa su cuenta con su propia contraseña. Mientras tanto aparece como «Pendiente de registro».</div><div class="hint er" id="ae"></div><div class="row" style="justify-content:flex-end;margin-top:12px"><button class="btn" data-a="x">Cancelar</button><button class="btn p" data-a="inv">Enviar invitación</button></div></div></div>`:`<div class="mod"><div class="card" role="dialog" aria-label="Lector QR"><h1>${S.mine.find(m=>m.id===o.id).st?'Marcar salida':'Marcar entrada'}</h1><p class="sub">Apunta la cámara al QR del lugar.</p><div class="qr">Cámara simulada</div><div class="row" style="justify-content:flex-end"><button class="btn" data-a="x">Cancelar</button><button class="btn p" data-a="scan" data-v="${o.id}">Simular lectura</button></div></div></div>`}
+document.addEventListener('input',e=>{if(e.target.id!=='ar')return;const p=parseRut(e.target.value),h=$('#rh');h.className='hint '+(p?(p.ok?'ok':'er'):'');h.textContent=!p?'Escribe el RUT completo con su dígito verificador':p.ok?'✓ RUT válido':'El dígito verificador no coincide'});
+document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b)return;const a=b.dataset.a,v=b.dataset.v,r=S.role;
+if(a==='role'){S.role=v;S.ov=null}
+else if(a==='tab')S.tab[r]=v;
+else if(a==='f')S.f=v;
+else if(a==='add')S.ov={t:'add'};
+else if(a==='x')S.ov=null;
+else if(a==='inv'){const p=parseRut($('#ar').value),m=$('#am').value.trim(),t=$('#at').value.replace(/\D/g,''),er=$('#ae');
+ if(!p||!p.ok){er.textContent='Revisa el RUT: debe ser válido.';return}
+ if(!/^\S+@\S+\.\S+$/.test(m)){er.textContent='Ingresa un correo válido.';return}
+ if(t.length<9){er.textContent='Ingresa un teléfono válido.';return}
+ if(S.pool.some(x=>x.n===p.n)){er.textContent='Esa persona ya está en tu bolsa.';return}
+ S.pool.push({n:p.n,name:'Sin registrar',mail:m,tel:$('#at').value,st:'Pendiente de registro',pri:$('#ap').value});log('Marcela Díaz','Agregó a la bolsa',fmt(p.n));S.ov=null;toast('Invitación enviada a '+m)}
+else if(a==='pub'){const d=$('#pd').value,s=$('#ps').value,e2=$('#pe').value,pl=$('#pp').value.trim(),c=+$('#pc').value,y=+$('#py').value;
+ if(!d||!s||!e2||!pl||c<1){$('#pe2').textContent='Completa fecha, horario, lugar y cupos.';return}
+ if(mm(e2)<=mm(s)){$('#pe2').textContent='La salida debe ser después de la entrada.';return}
+ S.shifts.push({id:S.nid++,co:'Bodega Central',d,s,e:e2,pl,cup:c,conf:0,pay:y});log('Marcela Díaz','Publicó turno',dl(d)+' '+s+'–'+e2);toast('Turno publicado. Lo verán los trabajadores de tu bolsa.')}
+else if(a==='take'){const s=S.shifts.find(x=>x.id==v);if(clash(s)){toast('Ese turno choca con otro que ya confirmaste.');return}S.mine.push({id:s.id,st:0});if(s.co==='Bodega Central')log('Camila Rojas','Confirmó turno',dl(s.d)+' '+s.s+'–'+s.e);toast('Turno confirmado')}
+else if(a==='drop'){S.mine=S.mine.filter(m=>m.id!=v);toast('Turno cancelado')}
+else if(a==='qr')S.ov={t:'qr',id:+v};
+else if(a==='scan'){const m=S.mine.find(x=>x.id==v);if(m.st===0)m.ti=now();else m.to=now();m.st++;S.ov=null;toast(m.st===1?'Entrada registrada':'Salida registrada')}
+else if(a==='leave'){S.pools[v]=0;S.mine=S.mine.filter(m=>S.shifts.find(x=>x.id===m.id).co!==v);S.f='Todas';toast('Saliste de la bolsa de '+v)}
+else if(a==='acc'){S.pagos[v][2]=1;toast('Resumen aceptado')}
+render()});
+render();
+</script></body></html>

@@ -1,0 +1,20 @@
+# Dependencias y compilados
+node_modules/
+/backend/vendor/
+/frontend/dist/
+*.zip
+
+# Secretos y entorno local (nunca se suben)
+.env
+.env.*
+!.env.example
+*.pem
+id_rsa*
+workin_deploy*
+
+# Sistema
+.DS_Store
+Thumbs.db
+*.log
+entrega/
+entregado/

@@ -1,0 +1,64 @@
+@import "tailwindcss";
+@import "@fontsource-variable/geist";
+
+@theme {
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Paleta tomada de la Presentación 2.0 */
+  --color-crema: #f9f6f1;
+  --color-papel: #fefcf8;
+  --color-arena: #f1ebe2;
+  --color-linea: #e2daca;
+  --color-tinta: #1d2128;
+  --color-tinta-2: #444a55;
+  --color-tinta-3: #646a74;
+  --color-naranja: #ce5b25;
+  --color-naranja-fuerte: #b74719;
+  --color-naranja-oscuro: #9a3a12;
+  --color-naranja-suave: #f7e4d8;
+  --color-ok: #2b6a4c;
+  --color-ok-suave: #e0efe6;
+  --color-aviso: #8a5a00;
+  --color-aviso-suave: #f8ecc9;
+  --color-error: #a8261c;
+  --color-error-suave: #f9e0dc;
+
+  --radius-control: 0.625rem;
+  --radius-panel: 0.875rem;
+}
+
+@layer base {
+  html {
+    background: var(--color-crema);
+    color: var(--color-tinta);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "tnum" 1, "ss01" 1;
+  }
+  body {
+    min-height: 100dvh;
+    background: var(--color-crema);
+  }
+  h1, h2, h3 {
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-naranja-fuerte);
+    outline-offset: 2px;
+  }
+  ::selection {
+    background: var(--color-naranja-suave);
+  }
+  dialog::backdrop {
+    background: rgb(29 33 40 / 0.55);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
